@@ -26,8 +26,6 @@ export const login = async (email, password) => {
       addAlert('success', response.data.message);
       changeURL();
     }
-
-    console.log(response);
   } catch (error) {
     addAlert('error', error.response.data.message);
   }

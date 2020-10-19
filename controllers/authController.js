@@ -271,7 +271,6 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
   //2.GENERATE A TOKEN AND SAVE IT TO THE DATABASE FOR COMAPARISON
   const token = user.getPasswordResetToken();
-  console.log(token);
 
   //save the document to the database using the save() method on the model object which coerses itself based on the data provided
   //that is if you provide data to create a document it will create a new document and if you provide data to update then
@@ -354,7 +353,6 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 
 //UPDATE PASSWORD
 exports.updatePassword = catchAsync(async (req, res, next) => {
-  console.log(req.body);
   //1.get the user based on the JWT token
   const user = await User.findById(req.user._id).select('+password');
 
@@ -385,7 +383,6 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 
 //UPDATE INFORMATION OF USER
 exports.updateUser = catchAsync(async (req, res, next) => {
-  console.log(req.file);
   //1.Check if the user is trying to update password and if so throw an error
   if (req.body.password || req.body.confirmPassword) {
     return next(

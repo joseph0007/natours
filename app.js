@@ -7,6 +7,7 @@ const mongoSanitizer = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
@@ -93,18 +94,20 @@ app.use(
   })
 );
 
-//using our own middleware --> to use middleware we need to use the use() method
-app.use((req, res, next) => {
-  //adds the date and time when the request was made
-  req.requestTime = new Date().toISOString();
-  //it is important to call the next function beacuse if not then the request object will be stuck at this middleware function
-  //and the request/response cycle will never end!!
+app.use(compression());
 
-  next();
-});
+//using our own middleware --> to use middleware we need to use the use() method
+// app.use((req, res, next) => {
+//   //adds the date and time when the request was made
+//   req.requestTime = new Date().toISOString();
+//   //it is important to call the next function beacuse if not then the request object will be stuck at this middleware function
+//   //and the request/response cycle will never end!!
+
+//   next();
+// });
 
 //using morgan(3rd party) middleware
-console.log(process.env.NODE_ENV);
+// console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
 // ROUTES

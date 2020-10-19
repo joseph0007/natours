@@ -35,7 +35,7 @@ const sendErrorDev = (err, req, res) => {
 
     //for devs
     // eslint-disable-next-line no-unreachable
-    console.error(err);
+    // console.error(err);
   }
 
   //for devs
@@ -59,7 +59,7 @@ const sendErrorProd = (err, req, res) => {
       });
     }
     //for devs
-    // console.error(err);
+    console.error(err);
 
     //send generic message to user
     return res.status(err.statusCode).json({
@@ -77,7 +77,7 @@ const sendErrorProd = (err, req, res) => {
     });
   }
   //for devs
-  // console.error(err);
+  console.error(err);
 
   //send generic message to user
   return res.status(err.statusCode).render('error', {

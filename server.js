@@ -9,8 +9,8 @@ const mongoose = require('mongoose');
  * if the error occurs inside of a node middleware then it will be handled by the error handling middleware that we set
  */
 process.on('uncaughtException', (err) => {
-  console.log(err.name, err.message);
   console.log('Something is not working.Server crashed!!');
+  console.log(err.name, err.message);
   process.exit(1);
 });
 
@@ -35,7 +35,7 @@ mongoose
   .then(() => console.log('DB connection successful!'));
 
 const port = process.env.PORT || 3000;
-const server = app.listen(port, '127.0.0.1', () => {
+const server = app.listen(port, () => {
   console.log('instantiated...');
 });
 
@@ -49,8 +49,8 @@ const server = app.listen(port, '127.0.0.1', () => {
  */
 
 process.on('unhandledRejection', (err) => {
-  console.log(err.name, err.message);
   console.log('Something is not working.Server crashed!!!');
+  console.log(err.name, err.message);
   server.close(() => {
     process.exit(1);
   });

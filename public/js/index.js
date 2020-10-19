@@ -16,8 +16,6 @@ if (formEle) {
     const password = document.getElementById('password').value;
     const email = document.getElementById('email').value;
 
-    console.log(email, password);
-
     login(email, password);
   });
 }

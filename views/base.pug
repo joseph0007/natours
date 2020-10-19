@@ -1,0 +1,46 @@
+//-here the first part is the element name and the second part is the content of the element
+//-<h1>Whats up<h1>, valid html is also valid in pug!!
+//- in pug if we use the normal "//(comments)" then it will transform it into html comments and it will be visible in the html file.
+//- where as if use "//-" then it will not be visible in the html file!!
+
+//-attributes are defined inside "()"
+//- javascript code / local variable should always come after "=" 
+//- eg: h1= tour ---> this is called as buffer code which means this will be rendered on the webpage
+//- if you dont want to render it then it is called as unbuffered code which should be initialized after "-" symbol
+//- eg: - const a = 4 * 2;
+//- if you want to use local variables along with normal text then you can use interpolation which can be done as
+//- #{tour}!!
+//- you can use javascript methods along with pug "h1= tour.toUpperCase()"
+//- classes can be given using a .<classname> eg: nav.nav__bar.nav__bar--1
+//- if its a div element you dont even need to  mention the div!!
+//- if you dont want to indent in some cases you can use "element: indented_element" eg: li: a 
+
+//- "include" just includes the other files into the base file whereas extends copies the enter base file into the file that 
+//- "extends" it!!
+
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        //-meta(http-equiv="Content-Security-Policy", content="script-src https://api.mapbox.com/ ; script-src-elem https://api.mapbox.com/ ; style-src https://api.mapbox.com/ ; style-src-elem https://api.mapbox.com/")
+        title Natours | #{title || "Exciting tours for adventurous people"}
+        //- if we start a hyperlink location with "/" then it is a relative location and the browser will automatically add this
+        //- location after the domain name / ip address part that is in the url-endpoint
+        link(rel="stylesheet", href="/css/style.css")
+        link(rel="shortcut icon", href="/img/favicon.png", type="image/png")
+        link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Lato:300,300i,700")
+        //- script(src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js", integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg==", crossorigin="anonymous")
+        block head
+    body 
+        //header
+        include _header
+
+        //main
+        //- to extend this block in some other file
+        block content   
+
+        //footer
+        include _footer
+        
+        script(src="/js/bundle.js")
+        //- script(src="/js/mapBox.js")

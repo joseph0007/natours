@@ -19,6 +19,9 @@ const appErrorHandler = require('./controllers/errorController');
 
 const app = express();
 
+//to enable trust proxy
+app.enable('trust proxy');
+
 //setting view engine to let express know which template engine we are using
 //you dont need to require "pug", express does that implicitly!!
 app.set('view engine', 'pug');

@@ -55,3 +55,11 @@ process.on('unhandledRejection', (err) => {
     process.exit(1);
   });
 });
+
+//responding to a SIGTERM event which is an event that is emmited by heroku to our app
+//this event is to terminate our app for a while to make some necessary polishing changes to keep our app running smoothly
+process.on('SIGTERM', () => {
+  server.close(() => {
+    console.log('✌🏽SIGTERM RECIEVED. Shutting down!!');
+  });
+});

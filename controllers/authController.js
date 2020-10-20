@@ -70,6 +70,7 @@ const createToken = async (id) => {
 const createSendToken = async (
   user,
   statusCode,
+  req,
   res,
   message = 'task sucssesful'
 ) => {
@@ -85,14 +86,20 @@ const createSendToken = async (
       Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
     ),
     //makes so that cookies are sent and recieved over a secure connection
-    // secure: true,
+    secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
     //makes so that the browser only sends and receives cookie data and not concerned with what is inside the cookie
     //this makes it more secure as hackers cannot access the contents of the cookie
     httpOnly: true,
   };
 
   //to make secure: true only in production environment
-  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+  // if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+  // the problem with setting the secure property here is that we need to check if our app is running on an https protocol
+  // which can be tested by checking the req.secure property, but since heroku uses proxy to redirect our requests to their
+  // servers we cannot access the req.secure and hence we need to check for it in the headers and also need to enable trust
+  // proxy!!
+  // if (req.secure || req.headers['x-forwarded-proto'] === 'https')
+  //   cookieOptions.secure = true;
 
   res.cookie('jwt', token, cookieOptions);
 
@@ -151,7 +158,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
    * system.
    *
    */
-  await createSendToken(user, 201, res);
+  await createSendToken(user, 201, req, res);
 });
 
 //LOGIN
@@ -174,7 +181,7 @@ exports.logIn = async (req, res, next) => {
   }
 
   //3.create a token and send it to the user!!
-  await createSendToken(user, 200, res, 'login successful');
+  await createSendToken(user, 200, req, res, 'login successful');
 };
 
 /**
@@ -348,7 +355,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   //done using mongo middleware (pre()) on "save" hook and hence we used save() here instead of updateOne() or any other method!!
 
   //5.SENDING THE NEW JWT TOKEN FOR LOGIN
-  await createSendToken(user, 201, res);
+  await createSendToken(user, 201, req, res);
 });
 
 //UPDATE PASSWORD
@@ -378,7 +385,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   await user.save();
 
   //4.issue a new JWT token
-  await createSendToken(user, 201, res, 'password updated successfully');
+  await createSendToken(user, 201, req, res, 'password updated successfully');
 });
 
 //UPDATE INFORMATION OF USER

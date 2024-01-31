@@ -14,7 +14,7 @@ process.on('uncaughtException', (err) => {
   process.exit(1);
 });
 
-dotenv.config({ path: './config.env' });
+dotenv.config({ path: '.env' });
 //executes all the code inside of app.js by the iife inside the require function!!
 const app = require('./app');
 
@@ -22,7 +22,11 @@ const app = require('./app');
 const DB = process.env.DATABASE.replace(
   '<PASSWORD>',
   process.env.DATABASE_PASSWORD
-);
+).replace(
+  '<USERNAME>',
+  process.env.DATABASE_USERNAME
+)
+
 
 mongoose
   // .connect(process.env.DATABASE_LOCAL

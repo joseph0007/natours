@@ -19,7 +19,10 @@ const user = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, 'utf-8'));
 const DB = process.env.DATABASE.replace(
   '<PASSWORD>',
   process.env.DATABASE_PASSWORD
-);
+).replace(
+  '<USERNAME>',
+  process.env.DATABASE_USERNAME
+)
 
 mongoose
   // .connect(process.env.DATABASE_LOCAL

@@ -60,7 +60,13 @@ module.exports = class Email {
     };
 
     // 3.Actually send the mail!!
-    await this.getTransporter().sendMail(mailOptions);
+    if( await this.getTransporter().verify() ) {
+      await this.getTransporter().sendMail(mailOptions);
+      return;
+    }
+
+    console.log("Failed to send message");
+    return;
   }
 
   async sendWelcome() {

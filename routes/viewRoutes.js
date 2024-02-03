@@ -8,6 +8,7 @@ const {
   getLoginPage,
   getUserDetailsPage,
   getMyTours,
+  getSignUpPage
   // updateUserDetails,
 } = require('../controllers/viewController');
 
@@ -34,5 +35,7 @@ router.get('/', bookingController.createBookingCheckout, getOverviewPage);
 router.get('/tours/:tour', getTourPage);
 
 router.get('/login', getLoginPage);
+
+router.get('/signup', getSignUpPage);
 
 module.exports = router;

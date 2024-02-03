@@ -7,7 +7,7 @@ export const setMap = () => {
 
     //mapboxgl object is available to us from the script that we loaded in the head!!
     mapboxgl.accessToken =
-      'pk.eyJ1Ijoiam9zZXBoam95IiwiYSI6ImNrZzIxcTRubjBkZTYycnBhOXA5c3N5bTIifQ.2CSV6snrC1vSDPT3XksxAw';
+      'pk.eyJ1Ijoiam9zZXBoam95IiwiYSI6ImNsczV4bzkyNzFqc3YyanBpeHo4aTR6ZGoifQ.2Agot3ybBSdVbH-AvlcyUw';
     var map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/josephjoy/ckg221l120b1t19ol3n381mmo',

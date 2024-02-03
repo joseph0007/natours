@@ -4,24 +4,32 @@ const htmltotext = require('html-to-text');
 
 //a Generic class to send Email
 module.exports = class Email {
-  constructor(user, url) {
+  constructor(user, url, test = false) {
+    if(test) {
+      this.to = 'josephjoy86000@gmail.com';
+      this.name = 'Joseph';
+      this.url = `http://localhost/me`;
+      this.from = `Joseph Joy <${process.env.EMAIL_ADD}>`;
+      return this;
+    }
+
     this.to = user.email;
     this.name = user.name.split(' ')[0];
     this.url = url;
-    this.from = `Joseph Joy <${process.env.EMIAL_ADD}>`;
+    this.from = `Joseph Joy <${process.env.EMAIL_ADD}>`;
   }
 
   getTransporter() {
-    if (process.env.NODE_ENV === 'production') {
-      //IMPLEMENT SENDGRID HERE!!
-      return nodemailer.createTransport({
-        service: 'SendGrid',
-        auth: {
-          user: process.env.SENDGRID_USER,
-          pass: process.env.SENDGRID_PASSWORD,
-        },
-      });
-    }
+    // if (process.env.NODE_ENV === 'production') {
+    //   //IMPLEMENT SENDGRID HERE!!
+    //   return nodemailer.createTransport({
+    //     service: 'SendGrid',
+    //     auth: {
+    //       user: process.env.SENDGRID_USER,
+    //       pass: process.env.SENDGRID_PASSWORD,
+    //     },
+    //   });
+    // }
 
     return nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
@@ -61,6 +69,10 @@ module.exports = class Email {
 
   async sendForgotPassword() {
     await this.send('passwordReset', 'Reset password');
+  }
+
+  async sendTestMail() {
+    await this.send('welcomeContent', 'Test Mail');
   }
 };
 

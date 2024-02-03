@@ -14,6 +14,7 @@ const userRouter = require('./routes/userRoutes');
 const viewRouter = require('./routes/viewRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
+const testRouter = require('./routes/testRoutes');
 const AppError = require('./utils/appError');
 const appErrorHandler = require('./controllers/errorController');
 
@@ -43,7 +44,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 //sets http headers which can then be understood by the browser to set security measures and prevent attacks
 //this should always be set as soon as possible in the middleware stack
 //by default it has certain options turned on but if you need further protection then refer helmet documentation
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
+// app.use(helmet());
 
 //this package keeps a track of requests coming from all the IP address and if the options that we set are broken then it will
 //block the access to our api and send an error message back to the client!!
@@ -119,6 +125,7 @@ app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/bookings', bookingRouter);
+app.use('/api/tests', testRouter);
 
 //to handle all the requests that are not handled by this server!!
 //if suppose a path does not lead to a middleware function that has a response ending operation that terminates the middleware flow

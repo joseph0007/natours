@@ -6,7 +6,7 @@ const User = require('../../Models/UserModel');
 const Review = require('../../Models/ReviewModel');
 
 // dotenv.config({ path: './config.env' });
-dotenv.config({ path: `${__dirname}/../../config.env` });
+dotenv.config({ path: `${__dirname}/../../.env` });
 
 //the ./ path always points to the root directory in this core_modules context
 const tour = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'));

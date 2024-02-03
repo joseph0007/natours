@@ -47,6 +47,12 @@ exports.getLoginPage = (req, res) => {
   });
 };
 
+exports.getSignUpPage = (req, res) => {
+  res.status(200).render('signup', {
+    title: 'Signup page',
+  });
+};
+
 exports.getUserDetailsPage = (req, res) => {
   res.status(200).render('usermenu', {
     title: req.user.name.toUpperCase(),

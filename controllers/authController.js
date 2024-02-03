@@ -135,12 +135,20 @@ exports.signUp = catchAsync(async (req, res, next) => {
    * required to create a new user.
    * the risk is that the user can pass in the role as admin and can gain administrative controls!!
    */
+
+  const sanityCheck = (userData) => {
+    if( userData.role && !(['user', 'lead-guide', 'guide'].includes(userData.role)) ) {
+      throw AppError(`Invalid role!! Please select => user, lead guide, guide`, 401);
+    }
+  }
+  sanityCheck(req.body);
+
   const user = await User.create({
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
     confirmPassword: req.body.confirmPassword,
-    changedAt: req.body.changedAt,
+    changedAt: req.body.changedAt || Date.now(),
     role: req.body.role,
   });
 

@@ -7,8 +7,9 @@
     "start": "node server.js",
     "start:dev": "nodemon server.js",
     "debug": "ndb server.js",
-    "dev:watch:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file ./bundle.js",
-    "dev:build:js": "parcel build ./public/js/index.js --out-dir ./public/js --out-file ./bundle.js"
+    "watch:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file ./bundle.js",
+    "build:js": "parcel build ./public/js/index.js --out-dir ./public/js --out-file ./bundle.js",
+    "vercel-build": "deployment successfull"
   },
   "author": "Joseph",
   "license": "ISC",

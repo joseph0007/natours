@@ -34,8 +34,8 @@ app.set('views', path.join(__dirname, 'views'));
 //this middleware is used to route only and only static files(.html, .js, .css, .png, etc) and not any directory
 //so if we make a request for a file without providing any specific path it will consider /path as its root directory and
 //look for that file in that directory!!
-// app.use(express.static(`${__dirname}/_public`));
-app.use(express.static(path.join(__dirname, '_public')));
+// app.use(express.static(`${__dirname}/public`));
+app.use(express.static(path.join(__dirname, 'public')));
 
 //middleware functions on the app are called as GLOBAL middleware functions because they operate at the highest level!!
 //to set a middleware function you can use use() method which then recevies a function which should be called there itself!!

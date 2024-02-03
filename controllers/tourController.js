@@ -48,7 +48,7 @@ exports.processImages = catchAsync(async (req, res, next) => {
     .resize(2000, 1333)
     .toFormat('jpeg')
     .jpeg({ quality: 90 })
-    .toFile(`_public/img/tours/${coverImageName}`);
+    .toFile(`public/img/tours/${coverImageName}`);
 
   //appending it to body so that it can be updated!!
   req.body.imageCover = coverImageName;
@@ -69,7 +69,7 @@ exports.processImages = catchAsync(async (req, res, next) => {
         .resize(2000, 1333)
         .toFormat('jpeg')
         .jpeg({ quality: 90 })
-        .toFile(`_public/img/tours/${imageName}`);
+        .toFile(`public/img/tours/${imageName}`);
 
       //appending it to body so that it can be updated!!
       req.body.images.push(imageName);
